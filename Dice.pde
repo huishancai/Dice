@@ -1,6 +1,7 @@
 Die one;
 Die two;
 Die three;
+int addSum = 0;
 
 void setup()
 {
@@ -12,24 +13,20 @@ void draw()
   //your code here
   background(239,180,193);
   
-  one = new Die(25, 25);
-  two = new Die(125, 25);
-  three = new Die(25, 125);
-  one.show();
-  two.show();
-  three.show();
-  
-  fill(0);
-  
-  //for (int i = 0; i < 100; i++)
-  //{
-    //int lol = (int)(Math.random()*300);
-    //Die bob = new Die(i*lol,lol);
-    //bob.show();
-  //}
+  for(int y = 25 ; y <= 400 ; y += 50 ) //8 rows
+  {
+    for(int x = 25 ; x <= 450 ; x +=50) //9 columns
+    {
+      Die ramen = new Die(x,y);
+      ramen.show();
+    }
+  }
+  textSize(40);
+  text("Total Sum: " + addSum,105,475);
 }
 void mousePressed()
 {
+  addSum = 0;
   redraw();
 }
 class Die //models one single dice cube
@@ -39,25 +36,26 @@ class Die //models one single dice cube
   Die(int x, int y) //constructor
   {
     //variable initializations here
-    //numDots = (int)((Math.random()*6)+1);
     myX = x;
     myY = y;
-    numDots = (int)(Math.random()*6)+1;
+    roll();
   }
   void roll()
   {
     //your code here
+    numDots = (int)(Math.random()*6)+1;
+    addSum += numDots;
   }
   void show()
   {
     //your code here
-    for(int i = 0; i <= 100; i++)
+    for(int square = 0; square <= 100; square++)
     {
       strokeWeight(1);
       fill(255);
       rect(myX, myY, 50, 50);
     }
-        int size = 10;
+    int size = 10;
     if (numDots == 1)
     {
       fill(0);
@@ -80,15 +78,27 @@ class Die //models one single dice cube
     {
       fill(0);
       ellipse(myX+12.5, myY+12.5, size, size);
+      ellipse(myX+37.5, myY+12.5, size, size);
+      ellipse(myX+12.5, myY+37.5, size, size);
+      ellipse(myX+37.5, myY+37.5, size, size);
     }
     else if (numDots == 5)
     {
       fill(0);
       ellipse(myX+12.5, myY+12.5, size, size);
+      ellipse(myX+37.5, myY+12.5, size, size);
+      ellipse(myX+12.5, myY+37.5, size, size);
+      ellipse(myX+37.5, myY+37.5, size, size);
+      ellipse(myX+25, myY+25, size, size);
     }
     else {
       fill(0);
       ellipse(myX+12.5, myY+12.5, size, size);
+      ellipse(myX+37.5, myY+12.5, size, size);
+      ellipse(myX+25, myY+12.5, size, size);
+      ellipse(myX+25, myY+37.5, size, size);
+      ellipse(myX+12.5, myY+37.5, size, size);
+      ellipse(myX+37.5, myY+37.5, size, size);
     }
   }
 }
